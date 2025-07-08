@@ -12,24 +12,26 @@ function Politics() {
 
   const API_KEY = 'fc98740f1cea480f98476d9ff2a39d3f';
 
-  const fetchNews = async (pageNumber) => {
-    const proxyUrl = "https://cors-anywhere.herokuapp.com/";
-    const apiUrl = `https://newsapi.org/v2/everything?q=politics&language=en&sortBy=publishedAt&pageSize=6&page=${pageNumber}&apiKey=${API_KEY}`;
-    const url = proxyUrl + apiUrl;
+const fetchNews = async (pageNumber) => {
+  const API_KEY = 'fc98740f1cea480f98476d9ff2a39d3f';
+  
+  const apiUrl = `https://newsapi.org/v2/everything?q=politics&language=en&sortBy=publishedAt&pageSize=6&page=${pageNumber}&apiKey=${API_KEY}`;
+  const encodedUrl = encodeURIComponent(apiUrl);
+  const proxyUrl = `https://api.allorigins.win/raw?url=${encodedUrl}`;
 
-    try {
-      const response = await axios.get(url);
-      const newArticles = response.data.articles;
+  try {
+    const response = await axios.get(proxyUrl);
+    const newArticles = response.data.articles;
 
-      setArticles((prev) => [...prev, ...newArticles]);
-      setHasMore(newArticles.length > 0);
-    } catch (error) {
-      console.error('Error fetching global political news:', error);
-      setHasMore(false);
-    } finally {
-      setLoading(false);
-    }
-  };
+    setArticles((prev) => [...prev, ...newArticles]);
+    setHasMore(newArticles.length > 0);
+  } catch (error) {
+    console.error("Error fetching global political news:", error);
+    setHasMore(false);
+  } finally {
+    setLoading(false);
+  }
+};
 
   useEffect(() => {
     fetchNews(page);
