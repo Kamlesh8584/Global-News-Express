@@ -6,21 +6,23 @@ import './Politics.css'; // Make sure this is imported
 function Politics() {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [page, setPage] = useState(1); // 🔹 Track current page
-  const [hasMore, setHasMore] = useState(true); // 🔹 To disable button if no more results
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
   const navigate = useNavigate();
 
   const API_KEY = 'fc98740f1cea480f98476d9ff2a39d3f';
 
   const fetchNews = async (pageNumber) => {
-    const url = `https://newsapi.org/v2/everything?q=politics&language=en&sortBy=publishedAt&pageSize=6&page=${pageNumber}&apiKey=${API_KEY}`;
+    const proxyUrl = "https://cors-anywhere.herokuapp.com/";
+    const apiUrl = `https://newsapi.org/v2/everything?q=politics&language=en&sortBy=publishedAt&pageSize=6&page=${pageNumber}&apiKey=${API_KEY}`;
+    const url = proxyUrl + apiUrl;
+
     try {
       const response = await axios.get(url);
       const newArticles = response.data.articles;
 
-      // 🔹 Append new articles to previous ones
       setArticles((prev) => [...prev, ...newArticles]);
-      setHasMore(newArticles.length > 0); // 🔹 If no new data, disable Load More
+      setHasMore(newArticles.length > 0);
     } catch (error) {
       console.error('Error fetching global political news:', error);
       setHasMore(false);
