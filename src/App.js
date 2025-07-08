@@ -13,7 +13,9 @@ import Politics from './Politics';
 
 function App() {
   return (
-    <BrowserRouter>
+   
+   <>
+   <BrowserRouter>
       <Headers />
 
       <Routes>
@@ -24,9 +26,14 @@ function App() {
         <Route path="/news" element={<News/>}/>
         <Route path="/politics" element={<Politics/>}/>
       </Routes>
-
+<div>
+    
+   </div>
       <Footers />
     </BrowserRouter>
+   
+   
+    </>
   );
 }
 
