@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // 👈 Import navigation
+import { useNavigate } from 'react-router-dom';
 
-function Login() {
+function Signup() {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [message, setMessage] = useState('');
-  const navigate = useNavigate(); // 👈 Create navigation hook
+  const navigate = useNavigate();
 
   const wrapperStyle = {
-    backgroundColor: '#a7d2fdff',
+    backgroundColor: '#f8f9fa',
     minHeight: '100vh',
     display: 'flex',
     justifyContent: 'center',
@@ -75,34 +76,38 @@ function Login() {
     textAlign: 'center',
     marginBottom: '1rem',
     fontSize: '0.95rem',
-    color: message === 'Login successful!' ? 'green' : 'red',
+    color: message === 'Registration successful!' ? 'green' : 'red',
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const demoEmail = 'Demo@gmail.com';
-    const demoPassword = 'Demo1234';
-
-    if (
-      email.trim().toLowerCase() === demoEmail.toLowerCase() &&
-      password === demoPassword
-    ) {
-      setMessage('Login successful!');
-      setTimeout(() => {
-        navigate('/home'); // 👈 Redirect after login
-      }, 1000); // optional 1s delay
-    } else {
-      setMessage('Invalid email or password');
+    // Simple validation
+    if (!name || !email || !password) {
+      setMessage('All fields are required');
+      return;
     }
+
+    setMessage('Registration successful!');
+    setTimeout(() => {
+      navigate('/home'); // redirect after signup
+    }, 1000);
   };
 
   return (
     <div style={wrapperStyle}>
       <div style={cardStyle}>
-        <h2 style={headingStyle}>Login</h2>
+        <h2 style={headingStyle}>Sign Up</h2>
         {message && <div style={messageStyle}>{message}</div>}
         <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            placeholder="Full Name"
+            required
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            style={inputStyle}
+          />
           <input
             type="email"
             placeholder="Email"
@@ -126,11 +131,10 @@ function Login() {
             {showPassword ? 'Hide Password' : 'Show Password'}
           </div>
           <button type="submit" style={buttonStyle}>
-            Log In
+            Register
           </button>
-          
-          <a href="Sign" style={linkStyle}>
-            Don’t have an account? Sign Up
+          <a href="/login" style={linkStyle}>
+            Already have an account? Log In
           </a>
         </form>
       </div>
@@ -138,4 +142,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Signup;

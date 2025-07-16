@@ -180,3 +180,53 @@
   font-size: 1.8rem;
   color: #007bff;
 }
+.channel-icons {
+  padding: 2rem;
+  background-color: #ffffff;
+  text-align: center;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.channel-icons h2 {
+  font-size: 1.8rem;
+  color: #007bff;
+  margin-bottom: 1.2rem;
+}
+
+.channel-icon-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.channel-icon {
+  background-color: #f2f6fb;
+  border-radius: 12px;
+  padding: 15px 20px;
+  width: 90px;
+  height: 90px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.channel-icon:hover {
+  background-color: #007bff;
+  color: #fff;
+  transform: translateY(-5px) scale(1.05);
+}
+
+.channel-icon span {
+  font-size: 1.8rem;
+}
+
+.channel-icon p {
+  margin-top: 5px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}

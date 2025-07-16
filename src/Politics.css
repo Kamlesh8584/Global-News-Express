@@ -1,5 +1,6 @@
 /* src/pages/Politics.css */
 
+
 .categories {
   text-align: center;
   padding: 2rem 1rem;
@@ -14,6 +15,7 @@
 }
 
 .category-list {
+
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

@@ -3,24 +3,21 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './Politics.css'; // Make sure this is imported
 
-function Politics() {
+function Sports() {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const navigate = useNavigate();
 
-
-const fetchNews = async (pageNumber) => {
   const API_KEY = 'fc98740f1cea480f98476d9ff2a39d3f';
 
-  // Step 1: Full original URL
-  const newsUrl = `https://newsapi.org/v2/everything?q=politics&language=en&sortBy=publishedAt&pageSize=6&page=${pageNumber}&apiKey=${API_KEY}`;
+const fetchNews = async (pageNumber) => {
 
-  // Step 2: Encode it safely
+  const newsUrl = `https://newsapi.org/v2/everything?q=cricket&language=en&sortBy=publishedAt&pageSize=6&page=${pageNumber}&apiKey=${API_KEY}`;
+
   const encodedUrl = encodeURIComponent(newsUrl);
 
-  // Step 3: Use AllOrigins proxy
   const finalUrl = `https://api.allorigins.win/raw?url=${encodedUrl}`;
 
   try {
@@ -62,7 +59,9 @@ const fetchNews = async (pageNumber) => {
 
       {/* News Section */}
       <div className="politics-container">
-        <h1>🌍 Global Politics News</h1>
+        <h1>🌍 Global Sports News</h1>
+
+        https://socialblade.com/youtube/channel/UCRWFSbif-RFENbBrSiez1DA
         {loading && page === 1 ? (
           <p className="loading">Loading news...</p>
         ) : (
@@ -99,4 +98,4 @@ const fetchNews = async (pageNumber) => {
   );
 }
 
-export default Politics;
+export default Sports;

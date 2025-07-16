@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function Footers() {
   const footerStyle = {
@@ -12,7 +13,28 @@ function Footers() {
 
   const textStyle = {
     fontSize: "0.95rem",
-    marginBottom: "10px",
+    marginBottom: "15px",
+  };
+
+  const navLinksStyle = {
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    gap: "12px",
+    marginBottom: "15px",
+  };
+
+  const navLinkStyle = {
+    color: "#fff",
+    textDecoration: "none",
+    fontSize: "0.9rem",
+    padding: "6px 10px",
+    borderRadius: "5px",
+    transition: "background 0.3s",
+  };
+
+  const navLinkHoverStyle = {
+    backgroundColor: "#ffffff33",
   };
 
   const iconContainerStyle = {
@@ -39,24 +61,60 @@ function Footers() {
     transform: "scale(1.1)",
   };
 
+  const navLinks = [
+    { label: "Home", path: "/home" },
+    { label: "About", path: "/about" },
+    { label: "Contact", path: "/contact" },
+    { label: "News", path: "/news" },
+    { label: "Politics", path: "/politics" },
+    { label: "Business", path: "/business" },
+    { label: "Technology", path: "/technology" },
+    { label: "Sports", path: "/sports" },
+    { label: "Entertainment", path: "/Entertainment" },
+    { label: "Health", path: "/Health" },
+    { label: "Login", path: "/login" },
+    { label: "Sign Up", path: "/Sign" },
+  ];
+
   const iconList = [
-    { name: "🌐", link: "#" },
-    { name: "🐦", link: "#" },
-    { name: "📘", link: "#" },
-    { name: "📸", link: "#" },
   ];
 
   return (
     <footer style={footerStyle}>
-      <p style={textStyle}>&copy; 2025 My React App. All rights reserved.</p>
+      <p style={textStyle}>
+        &copy; 2025 Global News Express. All rights reserved.
+      </p>
+
+      <div style={navLinksStyle}>
+        {navLinks.map((link, index) => (
+          <Link
+            key={index}
+            to={link.path}
+            style={navLinkStyle}
+            onMouseOver={(e) =>
+              Object.assign(e.currentTarget.style, navLinkHoverStyle)
+            }
+            onMouseOut={(e) =>
+              Object.assign(e.currentTarget.style, navLinkStyle)
+            }
+          >
+            {link.label}
+          </Link>
+        ))}
+      </div>
+
       <div style={iconContainerStyle}>
         {iconList.map((icon, index) => (
           <a
             key={index}
             href={icon.link}
             style={iconStyle}
-            onMouseOver={e => Object.assign(e.currentTarget.style, iconHoverStyle)}
-            onMouseOut={e => Object.assign(e.currentTarget.style, iconStyle)}
+            onMouseOver={(e) =>
+              Object.assign(e.currentTarget.style, iconHoverStyle)
+            }
+            onMouseOut={(e) =>
+              Object.assign(e.currentTarget.style, iconStyle)
+            }
             title="Visit Us"
           >
             <span style={{ fontSize: "1.2rem" }}>{icon.name}</span>
