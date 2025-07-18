@@ -10,7 +10,7 @@ const CHANNELS = {
   "Sky News": { id: "UCoMdktPbSTixAyNGwb-UYkQ", emoji: "📡" },
   "Al Jazeera": { id: "UCNye-wNBqNL5ZzHSJj3l8Bg", emoji: "🌐" },
   "NDTV": { id: "UCZFMm1mMw0F81Z37aaEzTUA", emoji: "📰" },
-  "Aaj Tak": { id: "UCt4atlExw8aj3Bm79nv1fig", emoji: "🇮🇳" },
+  "Aaj Tak": { id: "UCt4t-jeY85JegMlZ-E5UWtA", emoji: "🇮🇳" },
   "India Today": { id: "UCYPvAwZP8pZhSMW8qs7cVCw", emoji: "🧭" },
 };
 
@@ -28,7 +28,7 @@ function YT() {
               channelId: CHANNELS[selectedChannel].id,
               part: 'snippet',
               order: 'date',
-              maxResults: 6,
+              maxResults: 10,
             }
           }
         );
@@ -52,16 +52,16 @@ function YT() {
         display: 'flex',
         flexWrap: 'wrap',
         justifyContent: 'center',
-        gap: '15px',
-        marginBottom: '30px'
+        gap: '20px',
+        marginBottom: '100px'
       }}>
         {Object.entries(CHANNELS).map(([name, data]) => (
           <button
             key={name}
             onClick={() => setSelectedChannel(name)}
             style={{
-              padding: '10px 16px',
-              borderRadius: '30px',
+              padding: '15px 40px',
+              borderRadius: '50px',
               backgroundColor: selectedChannel === name ? '#007bff' : '#e9f2fb',
               color: selectedChannel === name ? '#fff' : '#007bff',
               border: '1px solid #007bff',
@@ -78,8 +78,8 @@ function YT() {
       {/* Videos */}
       <div style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
-        gap: '20px',
+        gridTemplateColumns: 'repeat(auto-fill, minmax(600px, 1fr))',
+        gap: '100px',
       }}>
         {videos.map((video) => (
           <div key={video.id.videoId} style={{
@@ -91,7 +91,7 @@ function YT() {
           }}>
             <iframe
               width="100%"
-              height="200"
+              height="400"
               src={`https://www.youtube.com/embed/${video.id.videoId}`}
               title={video.snippet.title}
               frameBorder="0"
