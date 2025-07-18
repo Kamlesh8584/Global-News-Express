@@ -15,7 +15,7 @@ const fetchNews = async (pageNumber) => {
   const API_KEY = 'fc98740f1cea480f98476d9ff2a39d3f';
 
   // Step 1: Full original URL
-  const newsUrl = `https://newsapi.org/v2/everything?q=politics&language=en&sortBy=publishedAt&pageSize=6&page=${pageNumber}&apiKey=${API_KEY}`;
+  const newsUrl = `https://newsapi.org/v2/everything?q=Politics&language=en&sortBy=publishedAt&pageSize=6&page=${pageNumber}&apiKey=${API_KEY}`;
 
   // Step 2: Encode it safely
   const encodedUrl = encodeURIComponent(newsUrl);

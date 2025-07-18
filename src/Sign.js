@@ -133,7 +133,7 @@ function Signup() {
           <button type="submit" style={buttonStyle}>
             Register
           </button>
-          <a href="/login" style={linkStyle}>
+          <a href="login" style={linkStyle}>
             Already have an account? Log In
           </a>
         </form>
