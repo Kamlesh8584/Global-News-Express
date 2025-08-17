@@ -25,7 +25,6 @@ import AddPost from './Addpost';
 import Cm from './Cm';
 import Auth from './Auth';
 
-
 function App() {
   const [darkMode, setDarkMode] = useState(false);
   const [lang, setLang] = useState('en');
@@ -45,10 +44,11 @@ function App() {
 
   return (
     <>
-      <BrowserRouter basename="/Global-News-Express">
+      {/* ✅ basename now adapts to local & GitHub Pages */}
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
         {/* Theme + Language Controls */}
         <div style={{ position: 'fixed', top: 10, right: 10, zIndex: 999 }}>
-          
+          {/* You can add theme/lang buttons here later */}
         </div>
 
         <Headers />
@@ -64,15 +64,15 @@ function App() {
           <Route path="/business" element={<Business />} />
           <Route path="/technology" element={<Technology />} />
           <Route path="/sports" element={<Sports />} />
-          <Route path="/Entertainment" element={<Entertainment/>} />
-          <Route path="/Health" element={<Health/>}/>
-          <Route path="/Sign" element={<Sign/>}/>
-          <Route path="/YT" element={<YT/>}/>
-          <Route path="/Backup" element={<Backup/>}/>
-          <Route path="Admin" element={<Admin/>}/>
-          <Route path="Addpost" element={<AddPost/>}/>
-          <Route path="Cm" element={<Cm/>}/>
-          <Route path="Auth" element={<Auth/>}/>
+          <Route path="/entertainment" element={<Entertainment />} />
+          <Route path="/health" element={<Health />} />
+          <Route path="/sign" element={<Sign />} />
+          <Route path="/yt" element={<YT />} />
+          <Route path="/backup" element={<Backup />} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/addpost" element={<AddPost />} />
+          <Route path="/cm" element={<Cm />} />
+          <Route path="/auth" element={<Auth />} />
         </Routes>
 
         <Footers />

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './Politics.css';
@@ -17,7 +17,8 @@ function Sports() {
 
   const API_KEY = 'fc98740f1cea480f98476d9ff2a39d3f';
 
-  const fetchNews = async (pageNumber) => {
+  // Wrap fetchNews in useCallback
+  const fetchNews = useCallback(async (pageNumber) => {
     const newsUrl = `https://newsapi.org/v2/everything?q=Sports&language=en&sortBy=publishedAt&pageSize=6&page=${pageNumber}&apiKey=${API_KEY}`;
     const encodedUrl = encodeURIComponent(newsUrl);
     const finalUrl = `https://api.allorigins.win/raw?url=${encodedUrl}`;
@@ -38,9 +39,9 @@ function Sports() {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
-  const fetchFromFirebase = async () => {
+  const fetchFromFirebase = useCallback(async () => {
     setLoading(true);
     try {
       const q = query(collection(db, 'posts'), where('category', '==', 'Sports'));
@@ -72,11 +73,11 @@ function Sports() {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchNews(page);
-  }, [page]);
+  }, [page, fetchNews]); // include fetchNews in dependencies
 
   const loadMoreNews = () => {
     if (!isBackup) setPage((prevPage) => prevPage + 1);
@@ -100,7 +101,7 @@ function Sports() {
         <h1>💼 Global Sports News</h1>
 
         {isBackup && (
-          <p className="backup-notice">⚠️ </p>
+          <p className="backup-notice">⚠️ Showing backup data from Firebase.</p>
         )}
 
         {loading && page === 1 ? (
