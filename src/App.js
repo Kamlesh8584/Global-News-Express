@@ -19,7 +19,6 @@ import Health from './Health';
 import Sign from './Sign';
 import YT from './YT';
 import Backup from './Backup';
-import { auth } from './Firebase'; // ✅ correct
 import Admin from './Admin';
 import AddPost from './Addpost';
 import Cm from './Cm';

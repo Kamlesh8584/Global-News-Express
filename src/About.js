@@ -16,14 +16,7 @@ function About() {
     boxShadow: '0 6px 30px rgba(0, 0, 0, 0.08)',
   };
 
-  const headingStyle = {
-    fontSize: '2.8rem',
-    color: '#0d47a1',
-    textAlign: 'center',
-    fontWeight: 700,
-    marginBottom: '1rem',
-  };
-
+  
   const subHeadingStyle = {
     fontSize: '1.8rem',
     color: '#1565c0',

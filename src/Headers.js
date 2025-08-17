@@ -13,12 +13,12 @@ function Headers() {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
       setLoadingAuth(false);
-      console.log('Logged in as:', currentUser?.email);
-
+      // ✅ Move console log outside of useEffect or log user directly
+      if (user) console.log('Logged in as:', user.email);
     });
 
     return () => unsubscribe();
-  }, []);
+  }, []); // No dependency needed
 
   const handleLogout = () => {
     const auth = getAuth();
@@ -30,7 +30,7 @@ function Headers() {
 
   if (loadingAuth) return null;
 
-const isAdmin = currentUser?.email?.toLowerCase() === 'admin@gmail.com';
+  const isAdmin = currentUser?.email?.toLowerCase() === 'admin@gmail.com';
 
   return (
     <header className="news-header">

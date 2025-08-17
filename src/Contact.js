@@ -111,10 +111,10 @@ function Contact() {
     transition: 'background 0.3s ease',
   };
 
-  const buttonHover = {
-    ...buttonStyle,
-    backgroundColor: '#3b82f6',
-  };
+  // const buttonHover = {
+  //   ...buttonStyle,
+  //   backgroundColor: '#3b82f6',
+  // };
 
   return (
     <div style={wrapperStyle}>
