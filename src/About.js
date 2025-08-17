@@ -2,97 +2,124 @@ import React from 'react';
 
 function About() {
   const wrapperStyle = {
-    backgroundColor: '#aacbebff', // 👈 Off-white background
-    minHeight: '100vh',
-    padding: '2rem 0',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'flex-start',
+    background: 'linear-gradient(135deg, #e3f2fd, #f1f8e9)',
+    fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+    padding: '0',
   };
 
-  const containerStyle = {
-    position: 'relative',
-    zIndex: 1,
-    padding: '2rem',
+  const sectionStyle = {
     maxWidth: '900px',
     margin: '2rem auto',
-    fontFamily: 'Arial, sans-serif',
-    lineHeight: '1.6',
-    backgroundColor: '#ffffff', // pure white card
-    borderRadius: '10px',
-    boxShadow: '0 0 20px rgba(0,0,0,0.1)',
+    backgroundColor: '#ffffff',
+    padding: '2rem',
+    borderRadius: '16px',
+    boxShadow: '0 6px 30px rgba(0, 0, 0, 0.08)',
   };
 
   const headingStyle = {
-    fontSize: '2rem',
-    marginBottom: '1rem',
-    color: '#007bff',
+    fontSize: '2.8rem',
+    color: '#0d47a1',
     textAlign: 'center',
+    fontWeight: 700,
+    marginBottom: '1rem',
+  };
+
+  const subHeadingStyle = {
+    fontSize: '1.8rem',
+    color: '#1565c0',
+    margin: '2rem 0 1rem 0',
+    borderBottom: '2px solid #bbdefb',
+    paddingBottom: '0.5rem',
   };
 
   const paragraphStyle = {
-    fontSize: '1rem',
+    fontSize: '1.1rem',
     color: '#333',
-    marginBottom: '1rem',
     textAlign: 'justify',
+    marginBottom: '1.2rem',
+    lineHeight: '1.7',
   };
 
-  const imageStyle = {
-    width: '100%',
-    height: 'auto',
-    borderRadius: '10px',
-    marginBottom: '1.5rem',
+  const heroStyle = {
+    textAlign: 'center',
+    padding: '4rem 2rem 2rem',
+    background: 'linear-gradient(to right, #1b65a1ff, #21cbf3)',
+    color: '#fff',
+    borderBottomLeftRadius: '20px',
+    borderBottomRightRadius: '20px',
+  };
+
+  const heroTitleStyle = {
+    fontSize: '3rem',
+    marginBottom: '0.5rem',
+    fontWeight: 800,
+  };
+
+  const heroTaglineStyle = {
+    fontSize: '1.3rem',
+    fontWeight: 400,
+    opacity: 0.9,
+  };
+
+  const ctaStyle = {
+    marginTop: '3rem',
+    textAlign: 'center',
+    fontStyle: 'italic',
+    color: '#0d47a1',
+    fontWeight: '500',
   };
 
   return (
     <div style={wrapperStyle}>
-      <div style={containerStyle}>
-        <h1 style={headingStyle}>About Global News Express</h1>
+      {/* Hero Section */}
+      <div style={heroStyle}>
+        <h1 style={heroTitleStyle}>Global News Express</h1>
+        <p style={heroTaglineStyle}>
+          Your one-stop destination for real-time, unbiased global news.
+        </p>
+      </div>
 
-        <img
-          src="https://img.freepik.com/free-vector/global-news-concept-illustration_114360-8866.jpg"
-          alt="Global News Illustration"
-          style={imageStyle}
-        />
-
+      {/* What We Do */}
+      <section style={sectionStyle}>
+        <h2 style={subHeadingStyle}>What We Do</h2>
         <p style={paragraphStyle}>
-          Welcome to <strong>Global News Express</strong> — your all-in-one news platform delivering the latest headlines, breaking stories, and in-depth coverage from trusted sources worldwide.
+          Global News Express aggregates the latest global headlines from reliable sources using powerful APIs.
         </p>
+        <ul style={{ ...paragraphStyle, listStyleType: 'disc', paddingLeft: '1.5rem' }}>
+          <li>Real-time News Updates</li>
+          <li>Category-based filtering (Tech, Sports, Politics, etc.)</li>
+          <li>YouTube News Channel Integration</li>
+          <li>Responsive and Clean User Interface</li>
+        </ul>
+      </section>
 
+      {/* How It Works */}
+      <section style={sectionStyle}>
+        <h2 style={subHeadingStyle}>How It Works</h2>
         <p style={paragraphStyle}>
-          In an era flooded with scattered information, we strive to simplify news consumption by aggregating content from reliable APIs and organizing it by categories such as Technology, Sports, Business, Health, and more.
+          Our system fetches data using <strong>NewsAPI</strong> and the <strong>YouTube Data API</strong>. The content is dynamically updated based on categories and preferences, giving users instant access to fresh and authentic global news.
         </p>
+      </section>
 
-        <img
-          src="https://img.freepik.com/free-vector/news-concept-illustration_114360-639.jpg"
-          alt="News Aggregator Illustration"
-          style={imageStyle}
-        />
-
-        <h2 style={headingStyle}>How It Works</h2>
+      {/* Our Mission */}
+      <section style={sectionStyle}>
+        <h2 style={subHeadingStyle}>Our Mission</h2>
         <p style={paragraphStyle}>
-          Global News Express uses modern web technologies and third-party news APIs (such as NewsAPI.org) to collect and serve articles dynamically. The content refreshes regularly, ensuring that you're always up to date.
+          We believe in delivering fast, factual, and frictionless news experiences. Our mission is to offer a clean platform for people to stay globally informed.
         </p>
+      </section>
 
-        <h2 style={headingStyle}>Our Mission</h2>
+      {/* Disclaimer */}
+      <section style={sectionStyle}>
+        <h2 style={subHeadingStyle}>Disclaimer</h2>
         <p style={paragraphStyle}>
-          Our goal is to provide accurate, unbiased, and easy-to-access news for everyone — from students to professionals. We aim to offer a distraction-free reading experience that respects your time and intelligence.
+          Global News Express uses public APIs to fetch content from official sources. All news data and videos are credited to their original publishers. We do not host or modify any content.
         </p>
+      </section>
 
-        <img
-          src="https://img.freepik.com/free-vector/flat-world-news-illustration_23-2148895083.jpg"
-          alt="Stay Informed"
-          style={imageStyle}
-        />
-
-        <h2 style={headingStyle}>Disclaimer</h2>
-        <p style={paragraphStyle}>
-          We do not create or modify any news content. All articles are fetched from publicly available APIs and are credited to their respective publishers. If you are a publisher with concerns about the use of your content, please contact us directly.
-        </p>
-
-        <p style={{ ...paragraphStyle, textAlign: 'center', fontStyle: 'italic' }}>
-          Thank you for using Global News Express.
-        </p>
+      {/* Call to Action */}
+      <div style={ctaStyle}>
+        Thank you for using <strong>Global News Express</strong>. Stay informed. Stay aware.
       </div>
     </div>
   );

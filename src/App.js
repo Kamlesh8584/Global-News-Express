@@ -18,6 +18,13 @@ import Entertainment from './Entertainment';
 import Health from './Health';
 import Sign from './Sign';
 import YT from './YT';
+import Backup from './Backup';
+import { auth } from './Firebase'; // ✅ correct
+import Admin from './Admin';
+import AddPost from './Addpost';
+import Cm from './Cm';
+import Auth from './Auth';
+
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -61,6 +68,11 @@ function App() {
           <Route path="/Health" element={<Health/>}/>
           <Route path="/Sign" element={<Sign/>}/>
           <Route path="/YT" element={<YT/>}/>
+          <Route path="/Backup" element={<Backup/>}/>
+          <Route path="Admin" element={<Admin/>}/>
+          <Route path="Addpost" element={<AddPost/>}/>
+          <Route path="Cm" element={<Cm/>}/>
+          <Route path="Auth" element={<Auth/>}/>
         </Routes>
 
         <Footers />

@@ -72,8 +72,6 @@ function Footers() {
     { label: "Sports", path: "/sports" },
     { label: "Entertainment", path: "/Entertainment" },
     { label: "Health", path: "/Health" },
-    { label: "Login", path: "/login" },
-    { label: "Sign Up", path: "/Sign" },
   ];
 
   const iconList = [

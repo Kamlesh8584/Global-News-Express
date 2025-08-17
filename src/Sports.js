@@ -1,50 +1,89 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import './Politics.css'; // Make sure this is imported
+import './Politics.css';
+
+// Firebase Firestore imports
+import { db } from './Firebase';
+import { collection, query, where, getDocs } from 'firebase/firestore';
 
 function Sports() {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
+  const [isBackup, setIsBackup] = useState(false);
   const navigate = useNavigate();
 
   const API_KEY = 'fc98740f1cea480f98476d9ff2a39d3f';
 
-const fetchNews = async (pageNumber) => {
+  const fetchNews = async (pageNumber) => {
+    const newsUrl = `https://newsapi.org/v2/everything?q=Sports&language=en&sortBy=publishedAt&pageSize=6&page=${pageNumber}&apiKey=${API_KEY}`;
+    const encodedUrl = encodeURIComponent(newsUrl);
+    const finalUrl = `https://api.allorigins.win/raw?url=${encodedUrl}`;
 
-  const newsUrl = `https://newsapi.org/v2/everything?q=cricket&language=en&sortBy=publishedAt&pageSize=6&page=${pageNumber}&apiKey=${API_KEY}`;
+    try {
+      const response = await axios.get(finalUrl);
+      const newArticles = response?.data?.articles;
 
-  const encodedUrl = encodeURIComponent(newsUrl);
+      if (Array.isArray(newArticles)) {
+        setArticles((prev) => [...prev, ...newArticles]);
+        setHasMore(newArticles.length > 0);
+      } else {
+        throw new Error("API did not return an articles array");
+      }
+    } catch (error) {
+      console.error("❌ API failed, trying backup from Firebase...");
+      await fetchFromFirebase(); // Await backup fetch
+    } finally {
+      setLoading(false);
+    }
+  };
 
-  const finalUrl = `https://api.allorigins.win/raw?url=${encodedUrl}`;
+  const fetchFromFirebase = async () => {
+    setLoading(true);
+    try {
+      const q = query(collection(db, 'posts'), where('category', '==', 'Sports'));
+      const querySnapshot = await getDocs(q);
 
-  try {
-    const response = await axios.get(finalUrl);
-    const newArticles = response.data.articles;
+      console.log(`📦 Firebase returned ${querySnapshot.size} documents`);
 
-    setArticles((prev) => [...prev, ...newArticles]);
-    setHasMore(newArticles.length > 0);
-  } catch (error) {
-    console.error("Error fetching global political news:", error);
-    setHasMore(false);
-  } finally {
-    setLoading(false);
-  }
-};
+      if (querySnapshot.empty) {
+        console.warn("⚠️ No business articles found in Firebase");
+      }
+
+      const backupArticles = querySnapshot.docs.map((doc) => {
+        const data = doc.data();
+        console.log("🧾 Backup Article:", data);
+        return {
+          title: data.title || 'No Title',
+          description: data.description || 'No description available.',
+          urlToImage: data.image || 'https://via.placeholder.com/300x200',
+          url: data.url || '#',
+        };
+      });
+
+      setArticles(backupArticles);
+      setIsBackup(true);
+      setHasMore(false); // disable load more on backup
+    } catch (err) {
+      console.error("🔥 Firebase fetch failed:", err);
+      setArticles([]);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     fetchNews(page);
   }, [page]);
 
   const loadMoreNews = () => {
-    setPage((prevPage) => prevPage + 1);
+    if (!isBackup) setPage((prevPage) => prevPage + 1);
   };
 
   return (
     <>
-      {/* Categories Section */}
       <section className="categories">
         <h2>Explore Categories</h2>
         <div className="category-list">
@@ -57,34 +96,49 @@ const fetchNews = async (pageNumber) => {
         </div>
       </section>
 
-      {/* News Section */}
       <div className="politics-container">
-        <h1>🌍 Global Sports News</h1>
+        <h1>💼 Global Sports News</h1>
 
-        https://socialblade.com/youtube/channel/UCRWFSbif-RFENbBrSiez1DA
+        {isBackup && (
+          <p className="backup-notice">⚠️ </p>
+        )}
+
         {loading && page === 1 ? (
           <p className="loading">Loading news...</p>
         ) : (
           <>
-            <div className="news-grid">
-              {articles.map((article, index) => (
-                <div key={index} className="news-card">
-                  {article.urlToImage && (
-                    <img src={article.urlToImage} alt={article.title} className="news-image" />
-                  )}
-                  <div className="news-content">
-                    <h3>{article.title}</h3>
-                    <p>{article.description}</p>
-                    <a href={article.url} target="_blank" rel="noopener noreferrer">
-                      Read Full Article →
-                    </a>
+            {articles.length === 0 ? (
+              <p className="loading">😕 No articles found.</p>
+            ) : (
+              <div className="news-grid">
+                {articles.map((article, index) => (
+                  <div key={index} className="news-card">
+                    {article.urlToImage && (
+                      <img
+                        src={article.urlToImage}
+                        alt={article.title}
+                        className="news-image"
+                      />
+                    )}
+                    <div className="news-content">
+                      <h3>{article.title}</h3>
+                      <p>{article.description}</p>
+                      {article.url && article.url !== '#' && (
+                        <a
+                          href={article.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          Read Full Article →
+                        </a>
+                      )}
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
 
-            {/* Load More Button */}
-            {hasMore && (
+            {!isBackup && hasMore && articles.length > 0 && (
               <div className="load-more-container">
                 <button onClick={loadMoreNews} className="load-more-btn">
                   Load More News

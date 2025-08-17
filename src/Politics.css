@@ -131,3 +131,9 @@
 .load-more-btn:hover {
   background-color: #1565c0;
 }
+.backup-notice {
+  color: #d32f2f;
+  font-weight: bold;
+  text-align: center;
+  margin: 1rem 0;
+}
