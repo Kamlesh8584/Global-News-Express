@@ -53,7 +53,7 @@ function Headers() {
           <button onClick={() => navigate('/login')}>Login</button>
         )}
       </nav>
-    </header>
+    </header> 
   );
 }
 
